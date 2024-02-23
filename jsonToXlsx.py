@@ -61,8 +61,12 @@ class App(customtkinter.CTk):
         while bandera == True:
             try:
                 list_of_files = os.listdir('archivosJson')
-                return list_of_files
+                for archivo in list_of_files:
+                    if archivo[-5:-1] != ".jso":
+                        list_of_files.remove(archivo)
                 bandera = False
+                print(list_of_files)
+                return list_of_files
             except:
                 os.mkdir('archivosJson')
 
@@ -75,9 +79,8 @@ class App(customtkinter.CTk):
                 col += 1
 
     def create_list_from_json(self,jsonfile):
-        if jsonfile[-5:-1] == ".jso":
-            with open(jsonfile, 'r', encoding='utf-8-sig', errors='replace') as f:
-                data = json.load(f)
+        with open(jsonfile, 'r', encoding='utf-8-sig', errors='replace') as f:
+            data = json.load(f)
         
         data_list = []
 
